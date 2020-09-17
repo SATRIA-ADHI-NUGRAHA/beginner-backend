@@ -1,12 +1,27 @@
-const auth = (req, res, next) => {
-        const masuk = req.headers.masuk
-        if(masuk ==='123'){
-            next()
-        }else{
-            res.json({
-                msg:'Tidak diijinkan masuk'
-            })
-        }
-    }
+const jwt = require('jsonwebtoken')
+const { tokenResult } = require('../helpers/response')
+const { JWTSECRET } = require('../helpers/env')
 
-module.exports = auth
+module.exports = {
+    authentication: (req, res, next) => {
+        const token = req.headers.token
+        if(token === undefined || token === ''){
+            tokenResult(res, [], 'token harus diisi')
+        }else{
+            next()
+        }
+    },
+    authorization: (req, res, next) => {
+        const token  = req.headers.token
+        jwt.verify(token, JWTSECRET, (err, decoded) => {
+            if(err && err.name === 'TokenExpiredError'){
+                tokenResult(res, [], 'Auttentikasi gagal, token Expired')
+            }else if(err && err.name === 'JsonWebTokenError'){
+                tokenResult(res, [], 'Auttentikasi gagal, token Salah')
+            }else{
+                // console.log(decoded)
+                next()
+            }
+        })
+    }
+}

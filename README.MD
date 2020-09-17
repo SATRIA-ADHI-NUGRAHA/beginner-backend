@@ -6,3 +6,17 @@ Merupakan salah satu aplikasi dasar yang diperlukan dalam pengembangan website d
 
 ## REST API
 Digunakan sebagai pendekatan komunikasi dalam pengembangan web, yang memenfaatkan HTTP untuk komunikasi datanya.
+
+## Using npm with lodash
+```bash
+npm i --save lodash
+```
+
+## Using npm with multer
+
+```bash
+npm i --save multer
+```
+## JWT (JSON Web Token)
+
+## redis (Remote Dictionary SERVER)

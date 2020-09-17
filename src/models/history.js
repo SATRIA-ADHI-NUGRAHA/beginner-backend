@@ -1,11 +1,11 @@
 const db = require('../configs/db')
 
 const history = {
-    getAll: (recentOrders, sort, type, limit, offset) => {
+    getAll: (search, sort, type, limit, offset) => {
         return new Promise ((resolve, reject) => {
-            db.query(`SELECT *, (SELECT COUNT(*) FROM history ) AS count, 
-            history.id as id FROM history
-            ORDER BY ${sort} ${type} LIMIT ${offset}, ${limit}`, (err, result) => {
+            db.query(`SELECT *, (SELECT COUNT(*) FROM history ) AS count, history.id as id 
+            FROM history WHERE cashier LIKE '%${search}%' ORDER BY ${sort} ${type} LIMIT ${offset}, ${limit}`, 
+            (err, result) => {
                 if(err){
                     reject(new Error(err))
                 } else {

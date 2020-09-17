@@ -1,9 +1,11 @@
 const db = require('../configs/db')
 
 const category = {
-    getAll: () => {
+    getAll: (search, sort, type, limit, offset) => {
         return new Promise ((resolve, reject) => {
-            db.query(`SELECT * FROM category`, (err, result) => {
+            db.query(`SELECT *, (SELECT COUNT(*) FROM category) AS count, category.id as id
+            FROM category WHERE category LIKE '%${search}%' ORDER BY ${sort} ${type} LIMIT ${offset}, ${limit}`, 
+            (err, result) => {
                 if(err){
                     reject(new Error(err))
                 } else {
