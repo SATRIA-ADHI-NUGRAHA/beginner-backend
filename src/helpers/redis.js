@@ -13,7 +13,7 @@ module.exports = {
         const search = !req.query.search? '' : req.query.search
         const sort = !req.query.sort? 'id' : req.query.sort
         const type = !req.query.type? 'asc' : req.query.type
-        const limit = !req.query.limit? 5 : parseInt(req.query.limit)
+        const limit = !req.query.limit? 9 : parseInt(req.query.limit)
         const page = !req.query.page? 1 : parseInt(req.query.page)
         const start = page===1? 0 : (page*limit)-limit
         const offset = start===0 ? limit : start*limit

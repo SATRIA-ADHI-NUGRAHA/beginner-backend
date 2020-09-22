@@ -7,6 +7,7 @@ const router = express.Router()
 
 router
     .get('/getall', authentication, authorization, redis.getHistory, historyController.getAll)
+    // .get('/getall', authentication, authorization, historyController.getAll)
     .get('/getdetail/:id', authentication, authorization, historyController.getDetail)
     .post('/insert', historyController.insert)
     .patch('/update/:id', authentication, authorization, historyController.update)

@@ -19,6 +19,20 @@ const product = {
       );
     });
   },
+  // Model GetAll
+  getRedisModel: () => {
+    return new Promise((resolve, reject) => {
+        db.query(`SELECT *, (SELECT COUNT(*) FROM product) AS count, 
+        product.id as id FROM product LEFT JOIN category ON product.id_category=category.id`, 
+        (err, result) => {
+            if (err) {
+                reject(new Error(err))
+            } else {
+                resolve(result);
+            }
+        })
+    })
+  },
   getDetail: (id) => {
     return new Promise((resolve, reject) => {
       db.query(`SELECT * FROM product WHERE id= '${id}'`, (err, result) => {

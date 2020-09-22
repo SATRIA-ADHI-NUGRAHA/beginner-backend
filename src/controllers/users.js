@@ -19,7 +19,7 @@ const users = {
         }
         usersModel.register(data)
         .then((result) => {
-            success(res, result, 'Users berhasil ditambahkan')
+            success(res, result, 'Register Success')
         })
         .catch((err) => {
             failed(res, [], err.message)
@@ -42,9 +42,9 @@ const users = {
               token,
               refresToken 
             }
-            success(res, dataToken, 'Data token')
+            success(res, dataToken, 'Login Success')
           }else{
-            failed(res, [], 'Password salah')
+            failed(res, [], 'Wrong password/email')
           }
       })
       .catch((err) => {

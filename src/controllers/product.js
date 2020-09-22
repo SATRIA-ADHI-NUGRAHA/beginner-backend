@@ -16,7 +16,7 @@ const product = {
         productModel.getAll(namaProduk, sort, type, limit, offset)
         .then((result) => {
 
-            redisClient.set('products', JSON.stringify(result)) // <-- save data ke redis 
+            // redisClient.set('products', JSON.stringify(result)) // <-- save data ke redis 
 
             const totalRow = result[0].count
             const meta = {
@@ -29,6 +29,16 @@ const product = {
         })
         .catch((err) => {
             failed(res, [], err.message)
+        })
+        // GET REDIS
+        productModel.getRedisModel()
+        .then((results) => {
+            // console.log(results)
+            redisClient.set('products', JSON.stringify(results))
+        })
+        .catch(() => {
+            res.status(500)
+            failed(res, [], 'Error set redis')
         })
     },
     getDetail: (req, res) => {
