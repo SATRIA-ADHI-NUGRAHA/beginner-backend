@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { tokenResult } = require('../helpers/response')
+const { tokenResult, tokenResultExpired, tokenResultErr } = require('../helpers/response')
 const { JWTSECRET } = require('../helpers/env')
 
 module.exports = {
@@ -15,9 +15,9 @@ module.exports = {
         const token  = req.headers.token
         jwt.verify(token, JWTSECRET, (err, decoded) => {
             if(err && err.name === 'TokenExpiredError'){
-                tokenResult(res, [], 'Auttentikasi gagal, token Expired')
+                tokenResultExpired(res, [], 'Auttentikasi gagal, token Expired')
             }else if(err && err.name === 'JsonWebTokenError'){
-                tokenResult(res, [], 'Auttentikasi gagal, token Salah')
+                tokenResultErr(res, [], 'Auttentikasi gagal, token Salah')
             }else{
                 // console.log(decoded)
                 next()

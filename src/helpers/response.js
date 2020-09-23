@@ -35,6 +35,24 @@ const response = {
             data
         }
         res.json(result)
+    },
+    tokenResultErr: (res, data, message) => {
+        const result = {
+            message,
+            success: true,
+            code:333,
+            data
+        }
+        res.status(333).json(result)
+    },
+    tokenResultExpired: (res, data, message) => {
+        const result = {
+            message,
+            success: true,
+            code:334,
+            data
+        }
+        res.status(334).json(result)
     }
 }
 
