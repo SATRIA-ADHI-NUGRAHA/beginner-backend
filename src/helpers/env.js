@@ -7,5 +7,7 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: process.env.DATABASE,
     JWTSECRET: process.env.JWTSECRET,
-    TOKENREFREST: process.env.TOKENREFREST
+    TOKENREFREST: process.env.TOKENREFREST,
+    USERMAIL: process.env.USERMAIL,
+    USERPASS: process.env.USERPASS
 }

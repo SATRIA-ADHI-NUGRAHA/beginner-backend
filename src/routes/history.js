@@ -1,12 +1,12 @@
 const express = require('express')
 const historyController = require('../controllers/history')
 const { authentication, authorization } = require('../helpers/auth')
-const redis = require('../helpers/redis')
+// const redis = require('../helpers/redis')
 
 const router = express.Router() 
 
 router
-    .get('/getall', authentication, authorization, redis.getHistory, historyController.getAll)
+    .get('/getall', authentication, authorization, historyController.getAll)
     // .get('/getall', authentication, authorization, historyController.getAll)
     .get('/getdetail/:id', authentication, authorization, historyController.getDetail)
     .post('/insert', historyController.insert)

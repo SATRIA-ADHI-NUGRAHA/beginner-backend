@@ -3,7 +3,8 @@ const response = {
         const result = {
             message,
             success: true,
-            code:111,
+            code:200,
+            status:'OK',
             data
         }
         res.json(result)
@@ -12,7 +13,8 @@ const response = {
         const result = {
             message,
             success: false,
-            code:000,
+            code:500,
+            status: 'Error',
             data
         }
         res.json(result)
@@ -21,7 +23,7 @@ const response = {
         const result = {
             message,
             success: true,
-            code:111,
+            code:200,
             meta:meta,
             data:data
         }
@@ -31,7 +33,7 @@ const response = {
         const result = {
             message,
             success: true,
-            code:111,
+            code:200,
             data
         }
         res.json(result)
@@ -39,20 +41,20 @@ const response = {
     tokenResultErr: (res, data, message) => {
         const result = {
             message,
-            success: true,
-            code:333,
+            success: false,
+            code:500,
             data
         }
-        res.status(333).json(result)
+        res.json(result)
     },
     tokenResultExpired: (res, data, message) => {
         const result = {
             message,
-            success: true,
-            code:334,
+            success: false,
+            code:500,
             data
         }
-        res.status(334).json(result)
+        res.status(500).json(result)
     }
 }
 

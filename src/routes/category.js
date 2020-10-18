@@ -2,7 +2,7 @@ const express = require('express')
 const categoryController = require('../controllers/category')
 const { authentication, authorization } = require('../helpers/auth')
 const auth = require('../helpers/auth')
-const redis = require('../helpers/redis')
+// const redis = require('../helpers/redis')
 
 const router = express.Router() 
 

@@ -7,5 +7,6 @@ router
     .post('/register', usersController.register)
     .post('/login', usersController.login)
     .post('/tokenRefres', usersController.tokenRefres)
+    .get('/verification/:token', usersController.verify)
 
 module.exports = router

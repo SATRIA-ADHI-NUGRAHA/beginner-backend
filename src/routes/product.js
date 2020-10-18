@@ -3,7 +3,7 @@ const productController = require('../controllers/product')
 const { authentication, authorization } = require('../helpers/auth')
 
 const upload = require('../helpers/upload')
-const redis = require('../helpers/redis')
+// const redis = require('../helpers/redis')
 
 const router = express.Router() 
 
