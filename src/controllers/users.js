@@ -45,12 +45,11 @@ const users = {
           success(res, result, 'Please check your mail for activation')
         })
         .catch((err) => {
-          console.log(err)
-          // if(err.message = 'Duplicate entry'){
-          //   failed(res, [], 'User Already exist')
-          // } else {
-          //   failed(res, [], err.message)
-          // }
+          if(err.message = 'Duplicate entry'){
+            failed(res, [], 'User Already exist')
+          } else {
+            failed(res, [], err.message)
+          }
         })
       } catch (error) {
         failed(res, [], 'internal server error');
