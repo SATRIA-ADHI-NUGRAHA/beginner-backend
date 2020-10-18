@@ -29,6 +29,7 @@ const users = {
             host: 'smtp.gmail.com',
             port: 465,
             secure: true,
+            requireSSL: true,
             auth: {
                 user: USERMAIL,
                 pass: USERPASS

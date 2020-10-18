@@ -16,7 +16,7 @@ const product = {
         productModel.getAll(namaProduk, sort, type, limit, offset)
         .then((result) => {
 
-            // redisClient.set('products', JSON.stringify(result)) // <-- save data ke redis 
+            redisClient.set('products', JSON.stringify(result)) // <-- save data ke redis 
 
             const totalRow = result[0].count
             const meta = {
