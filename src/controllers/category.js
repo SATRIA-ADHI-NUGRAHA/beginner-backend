@@ -14,7 +14,7 @@ const category = {
         categoryModel.getAll(search, sort, type, limit, offset)
         .then((result) => {
 
-            redisClient.set('category', JSON.stringify(result)) // <-- save data ke redis
+            // redisClient.set('category', JSON.stringify(result)) // <-- save data ke redis
 
             const totalRow = result[0].count
             const meta = {
@@ -43,7 +43,7 @@ const category = {
         const body = req.body
         categoryModel.insert(body)
         .then((result) => {
-            redisClient.del('category')
+            // redisClient.del('category')
             success(res, result, 'Category baru berhasil ditambahkan')
         })
         .catch((err) => {
@@ -55,7 +55,7 @@ const category = {
         const body = req.body
         categoryModel.update(body, id)
         .then((result) => {
-            redisClient.del('category')
+            // redisClient.del('category')
             success(res, result, 'Category berhasil diupdate')
         })
         .catch((err) => {
@@ -78,7 +78,7 @@ const category = {
         const id =  req.params.id
         categoryModel.destroy(id)
         .then((result) => {
-            redisClient.del('category')
+            // redisClient.del('category')
             success(res, result, 'Category berhasil dihapus')
         })
         .catch((err) => {

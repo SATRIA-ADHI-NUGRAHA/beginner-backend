@@ -10,8 +10,9 @@ const router = express.Router()
 router
     .get('/getall/', authentication, authorization, productController.getAll)
     .get('/getdetail/:id', authentication, authorization, productController.getDetail)
-    .post('/insert', productController.insert)
-    .patch('/update/:id', authentication, authorization, upload.single('gambar'),productController.update)
+    .post('/insert', authentication, authorization, productController.insert)
+    // .patch('/update/:id', authentication, authorization, upload.single('gambar'),productController.update)
+    .patch('/update/:id', authentication, authorization, productController.update)
     .delete('/delete/:id', authentication, authorization, productController.destroy)
 
     // .get('/getall/', redis.getProduct, productController.getAll)

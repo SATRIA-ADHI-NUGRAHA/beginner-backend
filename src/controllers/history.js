@@ -1,8 +1,8 @@
 const hostoryModel = require('../models/history')
 const { success, failed, successWithMeta } = require('../helpers/response')
-const redis = require('redis')
+// const redis = require('redis')
 const { database } = require('../helpers/env')
-const redisClient = redis.createClient()
+// const redisClient = redis.createClient()
 
 const history = {
     getAll: (req, res) => {
@@ -15,7 +15,7 @@ const history = {
         hostoryModel.getAll(search, sort, type, limit, offset)
         .then((result) => {
 
-            redisClient.set('history', JSON.stringify(result)) // <-- save data ke redis
+            // redisClient.set('history', JSON.stringify(result)) // <-- save data ke redis
 
             const totalRow = result[0].count
             const meta = {
@@ -44,7 +44,7 @@ const history = {
         const body = req.body
         hostoryModel.insert(body)
         .then((result) => {
-            redisClient.del('history')
+            // redisClient.del('history')
             success(res, result, 'Data berhasil dimasukkan')
         })
         .catch((err) => {
@@ -56,7 +56,7 @@ const history = {
         const body = req.body
         hostoryModel.update(body, id)
         .then((result) => {
-            redisClient.del('history')
+            // redisClient.del('history')
             success(res, result, 'Data berhasil diupdate')
         })
         .catch((err) => {
@@ -67,7 +67,7 @@ const history = {
         const id =  req.params.id
         hostoryModel.destroy(id)
         .then((result) => {
-            redisClient.del('history')
+            // redisClient.del('history')
             success(res, result, 'Delete success')
         })
         .catch((err) => {

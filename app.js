@@ -8,8 +8,13 @@ const usersRouter = require('./src/routes/users')
 const transaksiRouter = require('./src/routes/transaksi')
 const cors = require('cors')
 const { PORT } = require('./src/helpers/env')
+const path = require('path')
+const ejs = require('ejs')
 
 const app = express()
+
+app.set('views', path.join(__dirname, 'src/views'));
+app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

@@ -3,12 +3,27 @@ const fs = require('fs')
 const { sort } = require("../controllers/product");
 
 const product = {
-  getAll: (namaProduk, sort, type, limit, offset) => {
+  getAll: (search, sort, type, limit, offset) => {
     return new Promise((resolve, reject) => {
       db.query(
         `SELECT *, (SELECT COUNT(*) FROM product) AS count, 
             product.id as id FROM product LEFT JOIN category ON product.id_category=category.id
-            WHERE nama_produk LIKE '%${namaProduk}%' ORDER BY ${sort} ${type} LIMIT ${offset}, ${limit} `,
+            WHERE nama_produk LIKE '%${search}%' ORDER BY ${sort} ${type} LIMIT ${offset}, ${limit} `,
+        (err, result) => {
+          if (err) {
+            reject(new Error(err));
+          } else {
+            resolve(result);
+          }
+        }
+      );
+    });
+  },
+  getAllData: () => {
+    return new Promise((resolve, reject) => {
+      db.query(
+        `SELECT *, (SELECT COUNT(*) FROM product) AS count, 
+            product.id as id FROM product LEFT JOIN category ON product.id_category=category.id`,
         (err, result) => {
           if (err) {
             reject(new Error(err));
@@ -46,17 +61,16 @@ const product = {
   },
   insert: (data) => {
     return new Promise((resolve, reject) => {
-      db.query(
-        `INSERT INTO product (gambar, nama_produk, harga, id_category) 
-            VALUE ('${data.gambar}',
-            '${data.nama_produk}',
-            '${data.harga}',
-            '${data.id_category}')`,
-        (err, result) => {
+      db.query(`INSERT INTO product (gambar, nama_produk, harga, id_category) 
+      VALUES ('${data.gambar}',
+      '${data.nama_produk}',
+      '${data.harga}',
+      '${data.id_category}')`,
+        (err, res) => {
           if (err) {
             reject(new Error(err.message));
           } else {
-            resolve(result);
+            resolve(res);
           }
         }
       );
@@ -113,11 +127,25 @@ const product = {
   },
   destroy: (id) => {
     return new Promise((resolve, reject) => {
-      db.query(`DELETE FROM product WHERE id='${id}'`, (err, result) => {
+      db.query(`SELECT * FROM product WHERE id='${id}'`, (err, result) => {
         if (err) {
-          reject(new Error(err.message));
+          reject(new Error(err));
         } else {
-          resolve(result);
+          resolve(new Promise((resolve, reject) => {
+            db.query(`DELETE FROM product WHERE id='${id}'`, (err, res) => {
+              const imagename = result[0].gambar
+              fs.unlink(`src/uploads/${imagename}`, (err) => {
+                // if(err)
+		            //   throw err
+                  console.log('Delete success')
+              })
+              if(err){
+                reject(new Error(err))
+              } else {
+                resolve(res)
+              }
+            })
+          }));
         }
       });
     });
