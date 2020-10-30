@@ -23,7 +23,7 @@ const users = {
           const token = jwt.sign({email: data.email}, JWTSECRET)
           const output = `<center><h3>Hello ${data.email}</h3>
           <h3>Thank you for registration</h3>
-          <p>You can confirm your email after click link <br> <a href="http://localhost:3000/users/verification/${token}">Activation</a></p></center>
+          <p>You can confirm your email after click link <br> <a href="http://18.205.153.196:3000/users/verification/${token}">Activation</a></p></center>
           `
           let transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
